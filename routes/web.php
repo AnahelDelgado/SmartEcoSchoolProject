@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('graphs.main');
-});
-
+Route::get('/', 'App\Http\Controllers\GraphController@index')->name("graph.main");
 Route::get('/admin', function () {
     return view('admin.home.index');
 });

@@ -18,7 +18,7 @@
                 <div class="card">
                     <h4>Consumo actual</h4>
                     <p>Tiempo real</p>
-                    <span>10.000 kWh</span>
+                    <span>{{ $electricidad_actual }} kWh</span>
                 </div>
                 <div class="card">
                     <h4>Consumo últimas horas</h4>
@@ -46,18 +46,18 @@
     <script>
         const ctx = document.getElementById('chartUltimasHoras')
 
-        const labels = ['Enero', 'Febrero', 'Marzo', 'Abril']
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: 'My First Dataset',
-                data: [0, 59, 80, 81],
-                fill: true,
-                borderColor: '#eab308',
-                backgroundColor: '#edd48a',
-                tension: 0.2
-            }]
-        };
+        const labels = ['{{ now()->subHours(12)->format('Y-m-d H:i:s') }}', '{{ now()->format('Y-m-d H:i:s') }}'],
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: {!! json_encode($electricidad_ultimas_12_horas) !!},
+                    fill: true,
+                    borderColor: '#eab308',
+                    backgroundColor: '#edd48a',
+                    tension: 0.2
+                }]
+            };
 
         new Chart(ctx, {
             type: 'line',
