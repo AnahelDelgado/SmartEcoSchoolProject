@@ -21,10 +21,3 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin.home.index');
 });
-
-Route::get('stock/add','StockController@create');
-Route::post('stock/add','StockController@store');
-
-Route::get('/stock', function () {
-    return view('stock/Stock');
-});
