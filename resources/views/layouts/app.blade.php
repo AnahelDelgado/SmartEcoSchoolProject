@@ -17,12 +17,12 @@
         }
 
         .custom-copyright {
-            background-color: #58FF33;
+            background-color: #297f4c;
             /* Color de fondo personalizado */
         }
 
         .custom-bg-color {
-            background-color: #58FF33;
+            background-color: #297f4c;
         }
     </style>
 </head>
@@ -38,7 +38,7 @@
                 <img src="{{ asset('/img/LogoSmartEcoSchool.png') }}" class="logo">
             </a>
             <!-- Título del sitio -->
-            <span class="navbar-text text-dark">
+            <span class="navbar-text text-white">
                 <h1>@yield('title', 'SmartEcoSchool IES El Rincon')</h1>
             </span>
         </div>
@@ -54,7 +54,7 @@
     @yield('content')
 
     <!-- footer -->
-    <div class="custom-copyright py-4 text-center text-dark">
+    <div class="custom-copyright py-4 text-center text-white">
         <div class="container">
             <small>
                 SmartEcoSchool Proyect - 2º DAW
