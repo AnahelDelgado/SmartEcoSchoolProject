@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('subtitle', 'Vista General')
 @section('head')
     <link rel="stylesheet" href="{{ asset('/css/main.graph.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
