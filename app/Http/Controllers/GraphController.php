@@ -42,10 +42,10 @@ class GraphController extends Controller
         ORDER BY m.fecha DESC
         LIMIT 9;";*/
 
-        $query = "SELECT MAX(m.consumo) MIN(m.consumo) as consumo,  CONCAT(YEAR(fecha), '-', WEEK(fecha)) as fecha
-        FROM measuremts m
+        $query = "SELECT MAX(m.consumo) - MIN(m.consumo) as consumo, MAX(fecha) as fecha
+        FROM measurements m
         WHERE m.id_sensor = $id_sensor
-        GROUP  CONCAT(YEAR(fecha), '-', WEEK(fecha))
+        GROUP BY CONCAT(YEAR(fecha), '-', WEEK(fecha))
         ORDER BY m.fecha DESC
         LIMIT 9;";
 

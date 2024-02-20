@@ -109,13 +109,14 @@
          * - opcionesFormatoFecha: Opciones del formato en el que se muestra la label de la fecha
          * véase: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#date-time_component_options
          * - idSensor: El Identificador del sensor para determinar los colores
+         * - dateFormatFn: Función que sobreescribe la función de formatear fecha predeterminada
         */
-        function parseData ({ datos, opcionesFormatoFecha, idSensor }) {
+        function parseData ({ datos, opcionesFormatoFecha, idSensor, dateFormatFn }) {
             const convertirFechaLegible = (data) => new Date(data.fecha).toLocaleDateString('es', opcionesFormatoFecha)
             const obtenerSoloConsumoDeResultados = (data) => data.consumo
 
             return {
-                labels: datos.map(convertirFechaLegible).reverse(),
+                labels: datos.map(dateFormatFn ?? convertirFechaLegible).reverse(),
                 datasets: [{
                     label: '',
                     data: datos.map(obtenerSoloConsumoDeResultados).reverse(),
@@ -132,7 +133,8 @@
             data: parseData({
                 datos: {!! json_encode($electricidad_semanal) !!},
                 opcionesFormatoFecha: { month: 'long', day: 'numeric' },
-                idSensor: 1
+                idSensor: 1,
+                dateFormatFn: (data) => `${new Date(data.fecha).getDate() - 6} al ${new Date(data.fecha).getDate()} de ${new Date(data.fecha).toLocaleDateString('es', {month: 'long'})}`,
             }),
             options
         })
