@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="text">
                         <h4>Consumo mensual</h4>
-                        <p>Consumo acumulado el último día de cada mes</p>
+                        <p>Consumo del mes restando el primer día y el último</p>
                     </div>
                     <div class="canvas">
                         <canvas id="chartElecMensual"></canvas>
@@ -74,7 +74,7 @@
                 <div class="card">
                     <div class="text">
                         <h4>Consumo mensual</h4>
-                        <p>Consumo acumulado el último día de cada mes</p>
+                        <p>Consumo del mes restando el primer día y el último</p>
                     </div>
                     <div class="canvas">
                         <canvas id="chartAguaMensual"></canvas>
@@ -84,22 +84,10 @@
         </section>
     </main>
     <script>
-        const data = (_data, dateFormatOptions, idSensor) => ({
-            labels: _data.map(({
-                fecha
-            }) => new Date(fecha).toLocaleDateString('es', dateFormatOptions)),
-            datasets: [{
-                label: '',
-                data: _data.map(({
-                    consumo
-                }) => consumo),
-                fill: true,
-                borderColor: idSensor === 1 ? '#eab308' : 'hsl(199, 89%, 60%)',
-                backgroundColor: idSensor === 1 ? '#edd48a' : 'hsl(199, 89%, 80%)',
-                tension: 0.2
-            }]
-        });
-
+        /**
+         * Opciones de ChartJS
+         * @link https://www.chartjs.org/docs/latest/configuration/
+        */
         const options = {
             plugins: {
                 legend: {
@@ -113,37 +101,69 @@
             }
         }
 
+        /**
+         * Función de utilidad que se encarga de procesar los datos
+         * y devolverselos a la librería
+         *
+         * - datos: array con objetos con las cosas devueltas por el sql
+         * - opcionesFormatoFecha: Opciones del formato en el que se muestra la label de la fecha
+         * véase: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#date-time_component_options
+         * - idSensor: El Identificador del sensor para determinar los colores
+        */
+        function parseData ({ datos, opcionesFormatoFecha, idSensor }) {
+            const convertirFechaLegible = (data) => new Date(data.fecha).toLocaleDateString('es', opcionesFormatoFecha)
+            const obtenerSoloConsumoDeResultados = (data) => data.consumo
+
+            return {
+                labels: datos.map(convertirFechaLegible),
+                datasets: [{
+                    label: '',
+                    data: datos.map(obtenerSoloConsumoDeResultados),
+                    fill: true,
+                    borderColor: idSensor === 1 ? '#eab308' : 'hsl(199, 89%, 60%)',
+                    backgroundColor: idSensor === 1 ? '#edd48a' : 'hsl(199, 89%, 80%)',
+                    tension: 0.2
+                }]
+            }
+        }
+
         new Chart(document.getElementById('chartElecSemanal'), {
             type: 'line',
-            data: data({!! json_encode($electricidad_semanal) !!}, {
-                month: 'long',
-                day: 'numeric'
-            }, 1),
+            data: parseData({
+                datos: {!! json_encode($electricidad_semanal) !!},
+                opcionesFormatoFecha: { month: 'long', day: 'numeric' },
+                idSensor: 1
+            }),
             options
         })
 
         new Chart(document.getElementById('chartElecMensual'), {
             type: 'line',
-            data: data({!! json_encode($electricidad_mensual) !!}, {
-                month: 'long'
-            }, 1),
+            data: parseData({
+                datos: {!! json_encode($electricidad_mensual) !!},
+                opcionesFormatoFecha: { month: 'long' },
+                idSensor: 1
+            }),
             options
         })
 
         new Chart(document.getElementById('chartAguaSemanal'), {
             type: 'line',
-            data: data({!! json_encode($agua_semanal) !!}, {
-                month: 'long',
-                day: 'numeric'
-            }, 2),
+            data: parseData({
+                datos: {!! json_encode($agua_semanal) !!},
+                opcionesFormatoFecha: { month: 'long', day: 'numeric' },
+                idSensor: 2
+            }),
             options
         })
 
         new Chart(document.getElementById('chartAguaMensual'), {
             type: 'line',
-            data: data({!! json_encode($agua_mensual) !!}, {
-                month: 'long'
-            }, 2),
+            data: parseData({
+                datos: {!! json_encode($agua_mensual) !!},
+                opcionesFormatoFecha: { month: 'long' },
+                idSensor: 2
+            }),
             options
         })
     </script>

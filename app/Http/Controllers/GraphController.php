@@ -14,16 +14,13 @@ class GraphController extends Controller
 
     public function acumulativo_mensual(int $id_sensor)
     {
-        $query = "SELECT m.id_sensor, m.consumo, CONCAT(YEAR(m.fecha), '-', LPAD(MONTH(m.fecha), 2, '0')) AS fecha
+        $query = "SELECT MAX(m.consumo) - MIN(m.consumo) as consumo, DATE_FORMAT(fecha, '%Y-%m') as fecha
         FROM measurements m
-        INNER JOIN (
-            SELECT MAX(fecha) AS ultima_fecha
-            FROM measurements
-            WHERE id_sensor = $id_sensor
-            GROUP BY YEAR(fecha), MONTH(fecha)
-        ) AS ultimas_fechas ON m.fecha = ultimas_fechas.ultima_fecha
-        WHERE m.id_sensor = 1
-        ORDER BY m.fecha ASC;";
+        WHERE m.id_sensor = $id_sensor
+        GROUP BY DATE_FORMAT(fecha, '%Y-%m')
+        ORDER BY m.fecha ASC
+        LIMIT 12;
+        ";
 
         return DB::select($query);
     }
