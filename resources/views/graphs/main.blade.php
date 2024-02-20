@@ -115,10 +115,10 @@
             const obtenerSoloConsumoDeResultados = (data) => data.consumo
 
             return {
-                labels: datos.map(convertirFechaLegible),
+                labels: datos.map(convertirFechaLegible).reverse(),
                 datasets: [{
                     label: '',
-                    data: datos.map(obtenerSoloConsumoDeResultados),
+                    data: datos.map(obtenerSoloConsumoDeResultados).reverse(),
                     fill: true,
                     borderColor: idSensor === 1 ? '#eab308' : 'hsl(199, 89%, 60%)',
                     backgroundColor: idSensor === 1 ? '#edd48a' : 'hsl(199, 89%, 80%)',
@@ -141,7 +141,7 @@
             type: 'line',
             data: parseData({
                 datos: {!! json_encode($electricidad_mensual) !!},
-                opcionesFormatoFecha: { month: 'long' },
+                opcionesFormatoFecha: { month: 'short', year: 'numeric' },
                 idSensor: 1
             }),
             options
@@ -161,7 +161,7 @@
             type: 'line',
             data: parseData({
                 datos: {!! json_encode($agua_mensual) !!},
-                opcionesFormatoFecha: { month: 'long' },
+                opcionesFormatoFecha: { month: 'short', year: 'numeric' },
                 idSensor: 2
             }),
             options
