@@ -18,3 +18,4 @@ Route::get('/', 'App\Http\Controllers\GraphController@index')->name("graph.main"
 Route::get('/admin', function () {
     return view('admin.home.index');
 });
+

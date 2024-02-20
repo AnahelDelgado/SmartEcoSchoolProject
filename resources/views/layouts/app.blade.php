@@ -18,7 +18,7 @@
 
         .custom-copyright {
             background-color: #297f4c;
-            /* Color de fondo personalizado */
+
         }
 
         .custom-bg-color {
