@@ -16,15 +16,28 @@
             </h2>
             <section class="grid">
                 <div class="card">
-                    <h4>Consumo actual</h4>
-                    <p>Tiempo real</p>
+                    <div class="text">
+                        <h4>Consumo actual</h4>
+                        <p>Resta entre los dos últimos registros de consumo acumulado</p>
+                    </div>
                     <span>{{ $electricidad_actual }} kWh</span>
                 </div>
                 <div class="card">
-                    <h4>Consumo últimas horas</h4>
-                    <p>Día actual</p>
+                    <div class="text">
+                        <h4>Consumo semanal</h4>
+                        <p>Consumo acumulado el último día de cada semana</p>
+                    </div>
                     <div class="canvas">
-                        <canvas id="chartUltimasHoras"></canvas>
+                        <canvas id="chartElecSemanal"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="text">
+                        <h4>Consumo mensual</h4>
+                        <p>Consumo acumulado el último día de cada mes</p>
+                    </div>
+                    <div class="canvas">
+                        <canvas id="chartElecMensual"></canvas>
                     </div>
                 </div>
             </section>
@@ -44,36 +57,50 @@
         </section>
     </main>
     <script>
-        const ctx = document.getElementById('chartUltimasHoras')
+        const data = (_data, dateFormatOptions) => ({
+            labels: _data.map(({
+                fecha
+            }) => new Date(fecha).toLocaleDateString('es', dateFormatOptions)),
+            datasets: [{
+                label: '',
+                data: _data.map(({
+                    consumo
+                }) => consumo),
+                fill: true,
+                borderColor: '#eab308',
+                backgroundColor: '#edd48a',
+                tension: 0.2
+            }]
+        });
 
-        const labels = ['{{ now()->subHours(12)->format('Y-m-d H:i:s') }}', '{{ now()->format('Y-m-d H:i:s') }}'],
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: {!! json_encode($electricidad_ultimas_12_horas) !!},
-                    fill: true,
-                    borderColor: '#eab308',
-                    backgroundColor: '#edd48a',
-                    tension: 0.2
-                }]
-            };
-
-        new Chart(ctx, {
-            type: 'line',
-            data,
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    },
+        const options = {
+            plugins: {
+                legend: {
+                    display: false
                 },
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    }
+            },
+            scales: {
+                x: {
+                    beginAtZero: false
                 }
             }
+        }
+
+        new Chart(document.getElementById('chartElecSemanal'), {
+            type: 'line',
+            data: data({!! json_encode($electricidad_semanal) !!}, {
+                month: 'long',
+                day: 'numeric'
+            }),
+            options
+        })
+
+        new Chart(document.getElementById('chartElecMensual'), {
+            type: 'line',
+            data: data({!! json_encode($electricidad_mensual) !!}, {
+                month: 'long'
+            }),
+            options
         })
     </script>
 @endsection
