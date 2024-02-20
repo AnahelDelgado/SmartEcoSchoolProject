@@ -17,7 +17,7 @@
 }
 
 .color-yellow {
-  background-color: #eab308;
+  background-color: hsl(45, 93%, 47%);
 }
 
 * {
@@ -92,10 +92,20 @@ section h2 {
 
   span {
     margin: auto;
-    color: #eac148;
     font-size: 2em;
     font-weight: bold;
     font-family: monospace;
   }
+}
 
+/* Colores
+  left: izquierda / electricidad
+  right: derecha / agua
+*/
+.left span {
+  color: hsl(45, 79%, 60%);
+}
+
+.right span {
+  color: hsl(199, 89%, 60%);
 }

@@ -54,10 +54,37 @@
                 </svg>
                 Agua
             </h2>
+            <section class="grid">
+                <div class="card">
+                    <div class="text">
+                        <h4>Consumo actual</h4>
+                        <p>Resta entre los dos últimos registros de consumo acumulado</p>
+                    </div>
+                    <span>{{ $agua_actual }} litros</span>
+                </div>
+                <div class="card">
+                    <div class="text">
+                        <h4>Consumo semanal</h4>
+                        <p>Consumo acumulado el último día de cada semana</p>
+                    </div>
+                    <div class="canvas">
+                        <canvas id="chartAguaSemanal"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="text">
+                        <h4>Consumo mensual</h4>
+                        <p>Consumo acumulado el último día de cada mes</p>
+                    </div>
+                    <div class="canvas">
+                        <canvas id="chartAguaMensual"></canvas>
+                    </div>
+                </div>
+            </section>
         </section>
     </main>
     <script>
-        const data = (_data, dateFormatOptions) => ({
+        const data = (_data, dateFormatOptions, idSensor) => ({
             labels: _data.map(({
                 fecha
             }) => new Date(fecha).toLocaleDateString('es', dateFormatOptions)),
@@ -67,8 +94,8 @@
                     consumo
                 }) => consumo),
                 fill: true,
-                borderColor: '#eab308',
-                backgroundColor: '#edd48a',
+                borderColor: idSensor === 1 ? '#eab308' : 'hsl(199, 89%, 60%)',
+                backgroundColor: idSensor === 1 ? '#edd48a' : 'hsl(199, 89%, 80%)',
                 tension: 0.2
             }]
         });
@@ -91,7 +118,7 @@
             data: data({!! json_encode($electricidad_semanal) !!}, {
                 month: 'long',
                 day: 'numeric'
-            }),
+            }, 1),
             options
         })
 
@@ -99,7 +126,24 @@
             type: 'line',
             data: data({!! json_encode($electricidad_mensual) !!}, {
                 month: 'long'
-            }),
+            }, 1),
+            options
+        })
+
+        new Chart(document.getElementById('chartAguaSemanal'), {
+            type: 'line',
+            data: data({!! json_encode($agua_semanal) !!}, {
+                month: 'long',
+                day: 'numeric'
+            }, 2),
+            options
+        })
+
+        new Chart(document.getElementById('chartAguaMensual'), {
+            type: 'line',
+            data: data({!! json_encode($agua_mensual) !!}, {
+                month: 'long'
+            }, 2),
             options
         })
     </script>
