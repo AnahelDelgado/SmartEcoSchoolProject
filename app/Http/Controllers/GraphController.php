@@ -18,7 +18,7 @@ class GraphController extends Controller
         FROM measurements m
         WHERE m.id_sensor = $id_sensor
         GROUP BY DATE_FORMAT(fecha, '%Y-%m')
-        ORDER BY m.fecha ASC
+        ORDER BY m.fecha DESC
         LIMIT 12;
         ";
 
@@ -27,7 +27,7 @@ class GraphController extends Controller
 
     public function acumulativo_semanal(int $id_sensor)
     {
-        $query = "SELECT
+        /*$query = "SELECT
             m.id_sensor,
             m.consumo,
             m.fecha
@@ -39,6 +39,13 @@ class GraphController extends Controller
             GROUP BY YEARWEEK(fecha)
         ) AS ultimas_fechas ON m.fecha = ultimas_fechas.ultima_fecha
         WHERE m.id_sensor = 1
+        ORDER BY m.fecha DESC
+        LIMIT 9;";*/
+
+        $query = "SELECT MAX(m.consumo) MIN(m.consumo) as consumo,  CONCAT(YEAR(fecha), '-', WEEK(fecha)) as fecha
+        FROM measuremts m
+        WHERE m.id_sensor = $id_sensor
+        GROUP  CONCAT(YEAR(fecha), '-', WEEK(fecha))
         ORDER BY m.fecha DESC
         LIMIT 9;";
 
