@@ -3,6 +3,9 @@
 @section('head')
     <link rel="stylesheet" href="{{ asset('/css/main.graph.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es.js"></script>
+    <script>dayjs.locale('es')</script>
 @endsection
 @section('content')
     <main>
@@ -25,7 +28,7 @@
                 <div class="card">
                     <div class="text">
                         <h4>Consumo semanal</h4>
-                        <p>Consumo acumulado el último día de cada semana</p>
+                        <p>Resta entre el primer y último día de cada semana</p>
                     </div>
                     <div class="canvas">
                         <canvas id="chartElecSemanal"></canvas>
@@ -65,7 +68,7 @@
                 <div class="card">
                     <div class="text">
                         <h4>Consumo semanal</h4>
-                        <p>Consumo acumulado el último día de cada semana</p>
+                        <p>Resta entre el primer y último día de cada semana</p>
                     </div>
                     <div class="canvas">
                         <canvas id="chartAguaSemanal"></canvas>
@@ -127,14 +130,15 @@
                 }]
             }
         }
+        const formatoDiaMes = 'D MMM'
+        const formatearRangoDias = (data) => `${dayjs(data.fecha).subtract(6, 'd').format(formatoDiaMes)} al ${dayjs(data.fecha).format(formatoDiaMes)}`
 
         new Chart(document.getElementById('chartElecSemanal'), {
             type: 'line',
             data: parseData({
                 datos: {!! json_encode($electricidad_semanal) !!},
-                opcionesFormatoFecha: { month: 'long', day: 'numeric' },
                 idSensor: 1,
-                dateFormatFn: (data) => `${new Date(data.fecha).getDate() - 6} al ${new Date(data.fecha).getDate()} de ${new Date(data.fecha).toLocaleDateString('es', {month: 'long'})}`,
+                dateFormatFn: formatearRangoDias,
             }),
             options
         })
@@ -153,8 +157,8 @@
             type: 'line',
             data: parseData({
                 datos: {!! json_encode($agua_semanal) !!},
-                opcionesFormatoFecha: { month: 'long', day: 'numeric' },
-                idSensor: 2
+                idSensor: 2,
+                dateFormatFn: formatearRangoDias
             }),
             options
         })

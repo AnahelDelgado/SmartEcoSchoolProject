@@ -17,7 +17,7 @@
 }
 
 .color-yellow {
-  background-color: hsl(45, 93%, 47%);
+  background-color: hsl(45, 79%, 50%);
 }
 
 * {
@@ -91,7 +91,7 @@ section h2 {
   }
 
   span {
-    margin: auto;
+    margin-top: 1em;
     font-size: 2em;
     font-weight: bold;
     font-family: monospace;
@@ -103,7 +103,7 @@ section h2 {
   right: derecha / agua
 */
 .left span {
-  color: hsl(45, 79%, 60%);
+  color: rgb(234, 193, 72);
 }
 
 .right span {

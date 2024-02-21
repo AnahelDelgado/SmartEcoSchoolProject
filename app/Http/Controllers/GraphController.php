@@ -27,27 +27,13 @@ class GraphController extends Controller
 
     public function acumulativo_semanal(int $id_sensor)
     {
-        /*$query = "SELECT
-            m.id_sensor,
-            m.consumo,
-            m.fecha
-        FROM measurements m
-        INNER JOIN (
-            SELECT MAX(fecha) AS ultima_fecha
-            FROM measurements
-            WHERE id_sensor = $id_sensor
-            GROUP BY YEARWEEK(fecha)
-        ) AS ultimas_fechas ON m.fecha = ultimas_fechas.ultima_fecha
-        WHERE m.id_sensor = 1
-        ORDER BY m.fecha DESC
-        LIMIT 9;";*/
-
         $query = "SELECT MAX(m.consumo) - MIN(m.consumo) as consumo, MAX(fecha) as fecha
         FROM measurements m
         WHERE m.id_sensor = $id_sensor
         GROUP BY CONCAT(YEAR(fecha), '-', WEEK(fecha))
         ORDER BY m.fecha DESC
-        LIMIT 9;";
+        LIMIT 9;
+        ";
 
         return DB::select($query);
     }

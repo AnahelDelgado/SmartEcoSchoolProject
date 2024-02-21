@@ -30,7 +30,7 @@
 <body>
     <!-- header -->
 
-    <nav class="navbar navbar-expand-lg navbar-light custom-bg-color">
+    <nav class="navbar navbar-expand-md navbar-light custom-bg-color">
         <div class="container">
             <!-- Logo del sitio -->
             <a class="navbar-brand" href="#">
@@ -43,7 +43,7 @@
             </span>
         </div>
     </nav>
-    <header class="masthead bg-warning text-dark text-center py-4">
+    <header class="masthead bg-warning text-dark text-center py-2">
         <div class="container d-flex align-items-center flex-column">
             <h2>@yield('subtitle')</h2>
         </div>
