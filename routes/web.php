@@ -22,3 +22,5 @@ Route::get('/admin', function () {
 Route::get('/graphs/mensual', 'App\Http\Controllers\GraphControllerMensual@index')->name("graph.mensual");
 
 Route::get('/graphs/semanal', 'App\Http\Controllers\GraphControllerSemanal@index')->name("graph.semanal");
+
+Route::get('/graphs/actual', 'App\Http\Controllers\GraphControllerActual@index')->name("graph.actual");

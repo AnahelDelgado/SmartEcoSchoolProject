@@ -100,7 +100,7 @@
         }
         const formatoDiaMes = 'D MMM'
         const formatearRangoDias = (data) => `${dayjs(data.fecha).subtract(6, 'd').format(formatoDiaMes)} al ${dayjs(data.fecha).format(formatoDiaMes)}`
-
+        
         new Chart(document.getElementById('chartElecSemanal'), {
             type: 'line',
             data: parseData({
@@ -110,7 +110,7 @@
             }),
             options
         })
-
+        
         new Chart(document.getElementById('chartAguaSemanal'), {
             type: 'line',
             data: parseData({

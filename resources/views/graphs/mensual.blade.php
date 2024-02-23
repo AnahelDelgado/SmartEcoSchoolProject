@@ -42,7 +42,7 @@
                 Agua
             </h2>
             <section class="grid">
-                <div class="card">
+                <div class="card col-12">
                     <div class="text">
                         <h4>Consumo mensual</h4>
                         <p>Consumo del mes restando el primer día y el último</p>

@@ -29,7 +29,7 @@ class GraphControllerSemanal extends Controller
         $electricidad_semanal = $this->acumulativo_semanal(1);
         $agua_semanal = $this->acumulativo_semanal(2);
 
-        return view('graphs.main')
+        return view('graphs.semanal')
             ->with('electricidad_semanal', $electricidad_semanal)
             ->with('agua_semanal', $agua_semanal);
     }
