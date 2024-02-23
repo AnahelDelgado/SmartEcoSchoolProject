@@ -2,6 +2,7 @@
 @section('subtitle', 'Consumo semanal')
 @section('head')
     <link rel="stylesheet" href="{{ asset('/css/main.graph.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/full.graph.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es.js"></script>
@@ -100,7 +101,7 @@
         }
         const formatoDiaMes = 'D MMM'
         const formatearRangoDias = (data) => `${dayjs(data.fecha).subtract(6, 'd').format(formatoDiaMes)} al ${dayjs(data.fecha).format(formatoDiaMes)}`
-        
+
         new Chart(document.getElementById('chartElecSemanal'), {
             type: 'line',
             data: parseData({
@@ -110,7 +111,7 @@
             }),
             options
         })
-        
+
         new Chart(document.getElementById('chartAguaSemanal'), {
             type: 'line',
             data: parseData({

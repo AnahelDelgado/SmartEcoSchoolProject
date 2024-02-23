@@ -2,6 +2,7 @@
 @section('subtitle', 'Consumo actual')
 @section('head')
     <link rel="stylesheet" href="{{ asset('/css/main.graph.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/full.graph.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es.js"></script>
