@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('subtitle', 'Consumo mensual')
+@section('subtitle', 'Consumo semanal')
 @section('head')
     <link rel="stylesheet" href="{{ asset('/css/main.graph.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,11 +20,11 @@
             <section class="grid">
                 <div class="card">
                     <div class="text">
-                        <h4>Consumo mensual</h4>
-                        <p>Consumo del mes restando el primer día y el último</p>
+                        <h4>Consumo semanal</h4>
+                        <p>Resta entre el primer y último día de cada semana</p>
                     </div>
                     <div class="canvas">
-                        <canvas id="chartElecMensual"></canvas>
+                        <canvas id="chartElecSemanal"></canvas>
                     </div>
                 </div>
             </section>
@@ -44,11 +44,11 @@
             <section class="grid">
                 <div class="card">
                     <div class="text">
-                        <h4>Consumo mensual</h4>
-                        <p>Consumo del mes restando el primer día y el último</p>
+                        <h4>Consumo semanal</h4>
+                        <p>Resta entre el primer y último día de cada semana</p>
                     </div>
                     <div class="canvas">
-                        <canvas id="chartAguaMensual"></canvas>
+                        <canvas id="chartAguaSemanal"></canvas>
                     </div>
                 </div>
             </section>
@@ -101,22 +101,22 @@
         const formatoDiaMes = 'D MMM'
         const formatearRangoDias = (data) => `${dayjs(data.fecha).subtract(6, 'd').format(formatoDiaMes)} al ${dayjs(data.fecha).format(formatoDiaMes)}`
 
-        new Chart(document.getElementById('chartElecMensual'), {
+        new Chart(document.getElementById('chartElecSemanal'), {
             type: 'line',
             data: parseData({
-                datos: {!! json_encode($electricidad_mensual) !!},
-                opcionesFormatoFecha: { month: 'short', year: 'numeric' },
-                idSensor: 1
+                datos: {!! json_encode($electricidad_semanal) !!},
+                idSensor: 1,
+                dateFormatFn: formatearRangoDias,
             }),
             options
         })
 
-        new Chart(document.getElementById('chartAguaMensual'), {
+        new Chart(document.getElementById('chartAguaSemanal'), {
             type: 'line',
             data: parseData({
-                datos: {!! json_encode($agua_mensual) !!},
-                opcionesFormatoFecha: { month: 'short', year: 'numeric' },
-                idSensor: 2
+                datos: {!! json_encode($agua_semanal) !!},
+                idSensor: 2,
+                dateFormatFn: formatearRangoDias
             }),
             options
         })

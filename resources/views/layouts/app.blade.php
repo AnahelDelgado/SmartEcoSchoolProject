@@ -9,7 +9,6 @@
     @yield('head')
     <title>Proyecto SmartEcoSchool</title>
     <style>
-        /* Para el tamaño del logo */
         .logo {
             max-width: 80px;
             height: auto;

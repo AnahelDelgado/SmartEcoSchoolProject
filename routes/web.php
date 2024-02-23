@@ -19,3 +19,6 @@ Route::get('/admin', function () {
     return view('admin.home.index');
 });
 
+Route::get('/graphs/mensual', 'App\Http\Controllers\GraphControllerMensual@index')->name("graph.mensual");
+
+Route::get('/graphs/semanal', 'App\Http\Controllers\GraphControllerSemanal@index')->name("graph.semanal");
