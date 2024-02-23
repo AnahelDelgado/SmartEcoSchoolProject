@@ -87,6 +87,10 @@
         </section>
     </main>
     <script>
+
+        setTimeout(function() {
+            window.location.href = "http://127.0.0.1:8000/graphs/mensual";
+        }, 10000); 
         /**
          * Opciones de ChartJS
          * @link https://www.chartjs.org/docs/latest/configuration/
