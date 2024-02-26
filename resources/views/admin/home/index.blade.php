@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center">
                         <div class="rounded-circle bg-primary p-3 me-3">
-                            <i class="fas fa-building fa-3x text-light"></i>
+                            <i class="fas fa-building fa-2x text-light"></i>
                         </div>
                         <div>
                             <h5 class="card-title">
@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center">
                         <div class="rounded-circle bg-primary p-3 me-3">
-                            <i class="fas fa-chart-line fa-3x text-light"></i>
+                            <i class="fas fa-chart-line fa-2x text-light"></i>
                         </div>
                         <div>
                             <h5 class="card-title">
@@ -43,7 +43,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center">
                         <div class="rounded-circle bg-primary p-3 me-3">
-                            <i class="fas fa-microchip fa-3x text-light"></i>
+                            <i class="fas fa-microchip fa-2x text-light"></i>
                         </div>
                         <div>
                             <h5 class="card-title">
@@ -61,7 +61,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center">
                         <div class="rounded-circle bg-primary p-3 me-3">
-                            <i class="fas fa-gear fa-3x text-light"></i>
+                            <i class="fas fa-gear fa-2x text-light"></i>
                         </div>
                         <div>
                             <h5 class="card-title">
@@ -79,7 +79,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center">
                         <div class="rounded-circle bg-primary p-3 me-3">
-                            <i class="fas fa-user-group fa-3x text-light"></i>
+                            <i class="fas fa-user-group fa-2x text-light"></i>
                         </div>
                         <div>
                             <h5 class="card-title">
